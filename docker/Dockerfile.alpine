@@ -126,7 +126,7 @@ RUN BUILD_DIR="$(mktemp -d)" && \
       --directory "$BUILD_DIR/nginx" \
       --strip-components 1 && \
 \
-   wget -O "$BUILD_DIR/nginx_i2k.tar.gz" "https://github.com/skarlsson/nginx_i2k/archive/$NGINX_I2K_TAG.tar.gz" && \
+   wget -O "$BUILD_DIR/nginx_i2k.tar.gz" "https://github.com/skarlsson/ngnx_i2k/archive/$NGINX_I2K_TAG.tar.gz" && \
    mkdir -p $BUILD_DIR/nginx_i2k && \
    tar \
       --extract \
@@ -136,14 +136,16 @@ RUN BUILD_DIR="$(mktemp -d)" && \
 \
    cp  $BUILD_DIR/nginx_i2k/auto/make $BUILD_DIR/nginx/auto/make && \
 \
-  cd "$BUILD_DIR/nginx && \
+  cd "$BUILD_DIR/nginx" && \
   ./configure \
       --sbin-path=/usr/local/nginx/nginx \
       --conf-path=/usr/local/nginx/nginx.conf \ 
       --pid-path=/usr/local/nginx/nginx.pid \
       --with-http_ssl_module \
+      --without-http_rewrite_module \
       --add-module=../nginx_i2k && \
-   make -j8
+   make -j "$(getconf _NPROCESSORS_ONLN)" && \
+   echo "2"
 
  
 

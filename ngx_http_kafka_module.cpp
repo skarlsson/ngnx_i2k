@@ -4,12 +4,14 @@
  * using librdkafka: https://github.com/edenhill/librdkafka
  */
 
+extern "C"
+{
 #include <ngx_config.h>
 #include <ngx_core.h>
 #include <ngx_http.h>
 #include <librdkafka/rdkafka.h>
 #include "test.h"
-
+}
 
 #define KAFKA_TOPIC_MAXLEN 256
 #define KAFKA_BROKER_MAXLEN 512
@@ -20,6 +22,8 @@
 
 #define KAFKA_PARTITION_UNSET 0xFFFFFFFF
 
+extern "C"
+{
 static ngx_int_t ngx_http_kafka_init_worker(ngx_cycle_t *cycle);
 static void ngx_http_kafka_exit_worker(ngx_cycle_t *cycle);
 
@@ -38,6 +42,7 @@ static char *ngx_http_set_kafka_broker(ngx_conf_t *cf,
         ngx_command_t *cmd, void *conf);
 static ngx_int_t ngx_http_kafka_handler(ngx_http_request_t *r);
 static void ngx_http_kafka_post_callback_handler(ngx_http_request_t *r);
+}
 
 typedef enum {
     ngx_str_push = 0,

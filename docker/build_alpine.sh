@@ -1,4 +1,4 @@
 #!/bin/bash
-docker build -f Dockerfile.alpine --no-cache -tngnx_i2k .
+docker build -f Dockerfile.alpine -tngnx_i2k .
 
 
